@@ -4,5 +4,7 @@ interface HomeContract {
 
     interface View {}
 
-    interface Presenter {}
+    interface Presenter {
+        fun getTracksRemote (genre: String)
+    }
 }

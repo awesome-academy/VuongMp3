@@ -3,6 +3,7 @@ package com.vuongnq14798.vuongmp3.data.source
 import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.data.source.local.TracksLocalDataSource
 import com.vuongnq14798.vuongmp3.data.source.remote.TracksRemoteDataSource
+import com.vuongnq14798.vuongmp3.ui.OnDataLoadedListener
 
 class TracksRepository(
     private val remoteDataSource: TracksDataSource.Remote,
@@ -11,14 +12,14 @@ class TracksRepository(
 
     override fun getTracksRemote(
         genre: String,
-        callback: TracksDataSource.LoadTracksCallback<List<Track>>
+        callback: OnDataLoadedListener<List<Track>>
     ) {
         remoteDataSource.getTracksRemote(genre, callback)
     }
 
     override fun searchTracksRemote(
         searchKey: String,
-        callback: TracksDataSource.LoadTracksCallback<List<Track>>
+        callback: OnDataLoadedListener<List<Track>>
     ) {
         remoteDataSource.searchTracksRemote(searchKey, callback)
     }

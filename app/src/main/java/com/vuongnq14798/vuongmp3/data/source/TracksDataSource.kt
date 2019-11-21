@@ -1,19 +1,21 @@
 package com.vuongnq14798.vuongmp3.data.source
 
 import com.vuongnq14798.vuongmp3.data.model.Track
+import com.vuongnq14798.vuongmp3.ui.OnDataLoadedListener
 
 interface TracksDataSource {
 
-    interface LoadTracksCallback<T> {
-
-        fun onTracksLoaded(data: T)
-        fun onDataNotAvailable()
-    }
-
     interface Remote {
 
-        fun getTracksRemote(genre: String, callback: LoadTracksCallback<List<Track>>)
-        fun searchTracksRemote(searchKey: String, callback: LoadTracksCallback<List<Track>>)
+        fun getTracksRemote(
+            genre: String,
+            callback: OnDataLoadedListener<List<Track>>
+        )
+
+        fun searchTracksRemote(
+            searchKey: String,
+            callback: OnDataLoadedListener<List<Track>>
+        )
     }
 
     interface Local { }
