@@ -15,7 +15,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
     private val homePresenter: HomePresenter by lazy { HomePresenter(tracksRepository, this) }
 
-    override val layoutResId: Int get() = R.layout.fragment_home
+    override val layoutResId: Int = R.layout.fragment_home
 
     override fun initData(savedInstanceState: Bundle?) {
     }

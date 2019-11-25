@@ -3,6 +3,7 @@ package com.vuongnq14798.vuongmp3.data.source.remote
 import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.data.source.TracksDataSource
 import com.vuongnq14798.vuongmp3.ui.OnDataLoadedListener
+import com.vuongnq14798.vuongmp3.util.StringUtils
 
 class TracksRemoteDataSource : TracksDataSource.Remote {
 
@@ -10,7 +11,7 @@ class TracksRemoteDataSource : TracksDataSource.Remote {
         genre: String,
         callback: OnDataLoadedListener<List<Track>>
     ) {
-        TracksAsyncTask(callback).execute(genre)
+        TracksAsyncTask(callback).execute(StringUtils.initGenreUrl(genre))
     }
 
     override fun searchTracksRemote(
