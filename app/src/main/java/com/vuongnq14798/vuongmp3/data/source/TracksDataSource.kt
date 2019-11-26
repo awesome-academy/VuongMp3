@@ -1,5 +1,6 @@
 package com.vuongnq14798.vuongmp3.data.source
 
+import com.vuongnq14798.vuongmp3.data.model.Genre
 import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.ui.OnDataLoadedListener
 
@@ -18,5 +19,7 @@ interface TracksDataSource {
         )
     }
 
-    interface Local { }
+    interface Local {
+        fun getGenres(callback: OnDataLoadedListener<List<Genre>>)
+    }
 }

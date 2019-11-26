@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         app:itemIconTint="@color/color_green"
         app:itemTextColor="@color/color_green"
-        app:itemBackground="@android:color/white"
+        app:itemBackground="@color/color_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

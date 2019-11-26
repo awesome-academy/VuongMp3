@@ -8,4 +8,13 @@
     <string name="image_track">Image Track</string>
     <string name="suggested_playlists">SUGGESTED PLAYLISTS</string>
     <string name="top_trending">TOP TRENDING</string>
+    <string name="all_music">All music</string>
+    <string name="title_track_name">Ten bai hat</string>
+    <string name="title_artist_name">Ten ca si</string>
+    <string name="all_audio">All audio</string>
+    <string name="country">Country</string>
+    <string name="ambient">Ambient</string>
+    <string name="rock">Rock</string>
+    <string name="classical">Classical</string>
+    <string name="error_message">Data Not Available</string>
 </resources>
