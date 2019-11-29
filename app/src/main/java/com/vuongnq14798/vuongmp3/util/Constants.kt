@@ -20,7 +20,7 @@ object Constants {
         const val GENRES_CLASSICAL = "soundcloud:genres:classical"
     }
 
-    object Track{
+    object Track {
         const val COLLECTION = "collection"
         const val TRACK = "track"
         const val ID = "id"
@@ -35,6 +35,6 @@ object Constants {
         const val USER = "user"
         const val USERNAME = "username"
         const val LIKE_COUNT = "likes_count"
-        const val DESCRIPTION= "description"
+        const val DESCRIPTION = "description"
     }
 }

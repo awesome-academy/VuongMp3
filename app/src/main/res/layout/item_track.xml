@@ -2,54 +2,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageTrack"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="@dimen/dp_64"
         android:layout_height="@dimen/dp_64"
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_8"
-        android:contentDescription="@string/image_track"
+        android:contentDescription="@string/card_view"
         android:padding="@dimen/dp_8"
-        android:src="@drawable/ic_my_music"
+        app:cardCornerRadius="@dimen/dp_8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/trackImage"
+            android:layout_width="@dimen/dp_64"
+            android:layout_height="@dimen/dp_64"
+            android:contentDescription="@string/image_track"
+            android:src="@drawable/ic_my_music" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textNameTrack"
+        android:id="@+id/textTrackName"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_marginEnd="@dimen/dp_8"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/color_black"
-        app:layout_constraintEnd_toStartOf="@+id/imageOption"
-        app:layout_constraintStart_toEndOf="@+id/imageTrack"
+        app:layout_constraintEnd_toStartOf="@+id/optionImage"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Ten bai hat" />
+        tools:text="@string/ten_bai_hat" />
 
     <TextView
-        android:id="@+id/textNameArtist"
+        android:id="@+id/textArtistName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_4"
         android:layout_marginEnd="@dimen/dp_8"
-        app:layout_constraintEnd_toStartOf="@+id/imageOption"
-        app:layout_constraintStart_toEndOf="@+id/imageTrack"
-        app:layout_constraintTop_toBottomOf="@+id/textNameTrack"
-        tools:text="Ten ca si" />
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/optionImage"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/textTrackName"
+        tools:text="@string/ten_ca_si" />
 
     <ImageView
-        android:id="@+id/imageOption"
+        android:id="@+id/optionImage"
         android:layout_width="@dimen/dp_64"
         android:layout_height="@dimen/dp_64"
         android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
         android:contentDescription="@string/image_track"
-        android:padding="@dimen/dp_16"
+        android:padding="@dimen/dp_20"
         android:src="@drawable/ic_more"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

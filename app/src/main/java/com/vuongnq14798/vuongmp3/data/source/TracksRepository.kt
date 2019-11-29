@@ -1,5 +1,6 @@
 package com.vuongnq14798.vuongmp3.data.source
 
+import com.vuongnq14798.vuongmp3.data.model.Genre
 import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.data.source.local.TracksLocalDataSource
 import com.vuongnq14798.vuongmp3.data.source.remote.TracksRemoteDataSource
@@ -22,6 +23,10 @@ class TracksRepository(
         callback: OnDataLoadedListener<List<Track>>
     ) {
         remoteDataSource.searchTracksRemote(searchKey, callback)
+    }
+
+    override fun getGenres(callback: OnDataLoadedListener<List<Genre>>) {
+        localDataSource.getGenres(callback)
     }
 
     companion object {
