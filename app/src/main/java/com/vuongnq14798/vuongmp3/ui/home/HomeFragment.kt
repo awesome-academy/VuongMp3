@@ -37,15 +37,15 @@ class HomeFragment : BaseFragment(), HomeContract.View, GenreAdapter.OnGenreClic
     }
 
     override fun showGenres(genres: List<Genre>) {
-        val listAdapter = GenreAdapter(GenreDiffCallBack(), this)
-        suggestedPlaylists.adapter = listAdapter
-        listAdapter.submitList(genres)
+        val genreAdapter = GenreAdapter(GenreDiffCallBack(), this)
+        suggestedPlaylists.adapter = genreAdapter
+        genreAdapter.submitList(genres)
     }
 
     override fun showTracks(tracks: List<Track>) {
-        val listAdapter = TrackAdapter(TrackDiffCallBack(), this)
-        topTrending.adapter = listAdapter
-        listAdapter.submitList(tracks)
+        val trackAdapter = TrackAdapter(TrackDiffCallBack(), this)
+        topTrending.adapter = trackAdapter
+        trackAdapter.submitList(tracks)
     }
 
     override fun showError(exception: Exception) {
