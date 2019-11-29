@@ -1,9 +1,12 @@
 package com.vuongnq14798.vuongmp3.data.model
 
+import android.os.Parcelable
 import com.vuongnq14798.vuongmp3.util.Constants
 import com.vuongnq14798.vuongmp3.util.StringUtils
+import kotlinx.android.parcel.Parcelize
 import org.json.JSONObject
 
+@Parcelize
 data class Track(
     val id: Int,
     val title: String,
@@ -16,7 +19,7 @@ data class Track(
     val downloadUrl: String?,
     val artist: String?,
     val description: String?
-) {
+) : Parcelable {
     constructor(jsonObject: JSONObject) : this(
         jsonObject.getInt(Constants.Track.ID),
         jsonObject.getString(Constants.Track.TITLE),

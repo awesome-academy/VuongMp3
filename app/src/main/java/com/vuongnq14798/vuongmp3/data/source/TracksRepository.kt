@@ -26,14 +26,14 @@ class TracksRepository(
     }
 
     override fun getGenres(callback: OnDataLoadedListener<List<Genre>>) {
-        localDataSource.getGenres(callback)
+        localDataSource?.getGenres(callback)
     }
 
     companion object {
         private var INSTANCE: TracksRepository? = null
         fun getInstance(
-            remoteDataSource: TracksRemoteDataSource,
-            localDataSource: TracksLocalDataSource
+            remoteDataSource: TracksDataSource.Remote,
+            localDataSource: TracksDataSource.Local
         ) = INSTANCE ?: synchronized(this) {
             INSTANCE ?: TracksRepository(remoteDataSource, localDataSource).also { INSTANCE = it }
         }

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 import com.vuongnq14798.vuongmp3.R
 import com.vuongnq14798.vuongmp3.data.model.Genre
+import com.vuongnq14798.vuongmp3.util.Constants
 
 class DbHelper(val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -14,12 +15,30 @@ class DbHelper(val context: Context) :
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(SQL_CREATE_ENTRIES)
 
-        addGenre(db, Genre(context.getString(R.string.all_music), R.drawable.genre_all))
-        addGenre(db, Genre(context.getString(R.string.all_audio), R.drawable.genre_audio))
-        addGenre(db, Genre(context.getString(R.string.ambient), R.drawable.genre_ambient))
-        addGenre(db, Genre(context.getString(R.string.classical), R.drawable.genre_classical))
-        addGenre(db, Genre(context.getString(R.string.country), R.drawable.genre_country))
-        addGenre(db, Genre(context.getString(R.string.rock), R.drawable.genre_rock))
+        addGenre(
+            db,
+            Genre(context.getString(R.string.all_music), R.drawable.genre_all, Constants.Genre.GENRES_ALL_MUSIC)
+        )
+        addGenre(
+            db,
+            Genre(context.getString(R.string.all_audio), R.drawable.genre_audio, Constants.Genre.GENRES_ALL_AUDIO)
+        )
+        addGenre(
+            db,
+            Genre(context.getString(R.string.ambient), R.drawable.genre_ambient, Constants.Genre.GENRES_AMBIENT)
+        )
+        addGenre(
+            db,
+            Genre(context.getString(R.string.classical), R.drawable.genre_classical, Constants.Genre.GENRES_CLASSICAL)
+        )
+        addGenre(
+            db,
+            Genre(context.getString(R.string.country), R.drawable.genre_country, Constants.Genre.GENRES_COUNTRY)
+        )
+        addGenre(
+            db,
+            Genre(context.getString(R.string.rock), R.drawable.genre_rock, Constants.Genre.GENRES_ROCK)
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -31,6 +50,7 @@ class DbHelper(val context: Context) :
         val values = ContentValues().apply {
             put(GenreContract.GenreEntry.COLUMN_NAME_NAME, genre.genreName)
             put(GenreContract.GenreEntry.COLUMN_NAME_IMGAGE, genre.genreImage)
+            put(GenreContract.GenreEntry.COLUMN_URL_GENRE, genre.genreURL)
         }
 
         db?.insert(GenreContract.GenreEntry.TABLE_NAME, null, values)
@@ -46,7 +66,11 @@ class DbHelper(val context: Context) :
 
         with(cursor) {
             while (moveToNext()) {
-                val genre = Genre(cursor.getString(1), cursor.getInt(2))
+                val genre = Genre(
+                    cursor.getString(cursor.getColumnIndex(GenreContract.GenreEntry.COLUMN_NAME_NAME)),
+                    cursor.getInt(cursor.getColumnIndex(GenreContract.GenreEntry.COLUMN_NAME_IMGAGE)),
+                    cursor.getString(cursor.getColumnIndex(GenreContract.GenreEntry.COLUMN_URL_GENRE))
+                )
                 listGenre.add(genre)
             }
         }
@@ -63,7 +87,8 @@ class DbHelper(val context: Context) :
             "CREATE TABLE ${GenreContract.GenreEntry.TABLE_NAME} (" +
                     "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                     "${GenreContract.GenreEntry.COLUMN_NAME_NAME} TEXT," +
-                    "${GenreContract.GenreEntry.COLUMN_NAME_IMGAGE} INTEGER)"
+                    "${GenreContract.GenreEntry.COLUMN_NAME_IMGAGE} INTEGER," +
+                    "${GenreContract.GenreEntry.COLUMN_URL_GENRE} TEXT)"
         private const val SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS ${GenreContract.GenreEntry.TABLE_NAME}"
     }
