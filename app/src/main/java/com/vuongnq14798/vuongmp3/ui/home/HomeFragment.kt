@@ -9,6 +9,7 @@ import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.data.source.TracksRepository
 import com.vuongnq14798.vuongmp3.data.source.local.TracksLocalDataSource
 import com.vuongnq14798.vuongmp3.data.source.remote.TracksRemoteDataSource
+import com.vuongnq14798.vuongmp3.ui.detailgenre.DetailGenreActivity
 import com.vuongnq14798.vuongmp3.util.Constants
 import com.vuongnq14798.vuongmp3.util.GenreDiffCallBack
 import com.vuongnq14798.vuongmp3.util.TrackDiffCallBack
@@ -18,13 +19,15 @@ import java.lang.Exception
 class HomeFragment : BaseFragment(), HomeContract.View, GenreAdapter.OnGenreClickListener,
     TrackAdapter.OnTrackClickListener {
 
-    private val tracksRepository: TracksRepository by lazy {
-        TracksRepository(
-            TracksRemoteDataSource.getInstance(),
-            TracksLocalDataSource.getInstance(context!!)
-        )
+    private val tracksRepository: TracksRepository? by lazy {
+        context?.let {
+            TracksRepository.getInstance(
+                TracksRemoteDataSource.getInstance(),
+                TracksLocalDataSource.getInstance(it)
+            )
+        }
     }
-    private val homePresenter: HomePresenter by lazy { HomePresenter(tracksRepository, this) }
+    private val homePresenter: HomePresenter? by lazy { tracksRepository?.let { HomePresenter(it, this) } }
 
     override val layoutResId: Int = R.layout.fragment_home
 
@@ -32,8 +35,8 @@ class HomeFragment : BaseFragment(), HomeContract.View, GenreAdapter.OnGenreClic
     }
 
     override fun initComponents() {
-        homePresenter.getGenres()
-        homePresenter.getTracksRemote(Constants.Genre.GENRES_ALL_MUSIC)
+        homePresenter?.getGenres()
+        homePresenter?.getTracksRemote(Constants.Genre.GENRES_ALL_MUSIC)
     }
 
     override fun showGenres(genres: List<Genre>) {
@@ -52,9 +55,8 @@ class HomeFragment : BaseFragment(), HomeContract.View, GenreAdapter.OnGenreClic
         Toast.makeText(context, R.string.error_message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onGenreClicked(genre: Genre) {
-
-    }
+    override fun onGenreClicked(genre: Genre) =
+        startActivity(context?.let { DetailGenreActivity.getIntent(it, genre) })
 
     override fun onTrackClicked(Track: Track) {
 
