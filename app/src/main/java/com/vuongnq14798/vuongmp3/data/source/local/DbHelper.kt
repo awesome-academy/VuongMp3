@@ -17,27 +17,27 @@ class DbHelper(val context: Context) :
 
         addGenre(
             db,
-            Genre(context.getString(R.string.all_music), R.drawable.genre_all, Constants.Genre.GENRES_ALL_MUSIC)
+            Genre(context.getString(R.string.all_music), R.mipmap.genre_all, Constants.Genre.GENRES_ALL_MUSIC)
         )
         addGenre(
             db,
-            Genre(context.getString(R.string.all_audio), R.drawable.genre_audio, Constants.Genre.GENRES_ALL_AUDIO)
+            Genre(context.getString(R.string.all_audio), R.mipmap.genre_audio, Constants.Genre.GENRES_ALL_AUDIO)
         )
         addGenre(
             db,
-            Genre(context.getString(R.string.ambient), R.drawable.genre_ambient, Constants.Genre.GENRES_AMBIENT)
+            Genre(context.getString(R.string.ambient), R.mipmap.genre_ambient, Constants.Genre.GENRES_AMBIENT)
         )
         addGenre(
             db,
-            Genre(context.getString(R.string.classical), R.drawable.genre_classical, Constants.Genre.GENRES_CLASSICAL)
+            Genre(context.getString(R.string.classical), R.mipmap.genre_classical, Constants.Genre.GENRES_CLASSICAL)
         )
         addGenre(
             db,
-            Genre(context.getString(R.string.country), R.drawable.genre_country, Constants.Genre.GENRES_COUNTRY)
+            Genre(context.getString(R.string.country), R.mipmap.genre_country, Constants.Genre.GENRES_COUNTRY)
         )
         addGenre(
             db,
-            Genre(context.getString(R.string.rock), R.drawable.genre_rock, Constants.Genre.GENRES_ROCK)
+            Genre(context.getString(R.string.rock), R.mipmap.genre_rock, Constants.Genre.GENRES_ROCK)
         )
     }
 
