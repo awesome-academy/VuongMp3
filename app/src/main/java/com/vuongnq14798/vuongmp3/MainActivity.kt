@@ -1,12 +1,16 @@
 package com.vuongnq14798.vuongmp3
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vuongnq14798.vuongmp3.base.BaseActivity
+import com.vuongnq14798.vuongmp3.service.MediaPlayerService
 import com.vuongnq14798.vuongmp3.ui.downloaded.DownloadedFragment
 import com.vuongnq14798.vuongmp3.ui.home.HomeFragment
 import com.vuongnq14798.vuongmp3.ui.mymusic.MyMusicFragment
@@ -38,7 +42,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         return true
     }
 
-    fun addFragment(fragment: Fragment) =
+    private fun addFragment(fragment: Fragment) =
         supportFragmentManager
             .beginTransaction()
             .replace(
@@ -48,7 +52,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             )
             .commit()
 
-    fun replaceFragment(fragment: Fragment) =
+    private fun replaceFragment(fragment: Fragment) =
         supportFragmentManager
             .beginTransaction()
             .add(

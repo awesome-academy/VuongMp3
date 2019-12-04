@@ -22,5 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.detailgenre.DetailGenreActivity" />
+        <activity android:name=".ui.playmusic.PlayMusicActivity" />
+
+        <service android:name=".service.MediaPlayerService" />
     </application>
 </manifest>

@@ -3,6 +3,7 @@ package com.vuongnq14798.vuongmp3.mediaplayer
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
+import android.util.Log
 import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.service.MediaPlayerService
 import com.vuongnq14798.vuongmp3.util.LoopType
@@ -23,10 +24,13 @@ class MediaPlayerManager(
     private val mediaPlayer = MediaPlayer()
     private val tracks = mutableListOf<Track>()
     private var position = 0
-
     override var currentTrack: Track? = null
-    override var currentPosition = mediaPlayer.currentPosition
-    override val isPlaying: Boolean = mediaPlayer.isPlaying
+
+    override var currentPosition: Int
+        get() = mediaPlayer.currentPosition
+        set(value) {currentPosition = value}
+
+    override val isPlaying: Boolean get() = mediaPlayer.isPlaying
 
     override fun create(track: Track) {
 

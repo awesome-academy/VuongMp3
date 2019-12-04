@@ -1,6 +1,8 @@
 package com.vuongnq14798.vuongmp3.util
 
 import com.vuongnq14798.vuongmp3.BuildConfig
+import java.text.SimpleDateFormat
+import java.util.*
 
 object StringUtils {
 
@@ -15,4 +17,9 @@ object StringUtils {
 
     fun initStreamUrl(trackId: String) =
         String.format(Constants.Url.BASE_URL.plus(Constants.Url.BASE_STREAM_URL), trackId, BuildConfig.CLIENT_ID)
+
+    fun formatTime(time: Int): String {
+        val format = SimpleDateFormat("mm:ss", Locale.getDefault())
+        return format.format(time)
+    }
 }

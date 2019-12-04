@@ -35,9 +35,9 @@ class MediaPlayerService : Service(),
         mediaPlayerManager.start()
     }
 
-    override fun onError(mediaPlayer: MediaPlayer?, what: Int, extra: Int): Boolean {
+    override fun onError(mediaPlayer: MediaPlayer?, what: Int, extra: Int): Boolean = run {
         onFailure()
-        return true
+        true
     }
 
     override fun onCompletion(mediaPlayer: MediaPlayer) {
@@ -136,6 +136,5 @@ class MediaPlayerService : Service(),
         }
 
         fun getIntent(context: Context) = Intent(context, MediaPlayerService::class.java)
-
     }
 }
