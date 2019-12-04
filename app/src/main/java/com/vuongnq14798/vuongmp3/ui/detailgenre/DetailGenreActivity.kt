@@ -14,6 +14,7 @@ import com.vuongnq14798.vuongmp3.data.source.remote.TracksRemoteDataSource
 import com.vuongnq14798.vuongmp3.util.TrackDiffCallBack
 import kotlinx.android.synthetic.main.activity_detail_genre.*
 import java.lang.Exception
+import java.util.*
 
 class DetailGenreActivity : BaseActivity(), DetailGenreContract.View,
     DetailGenreAdapter.OnTrackClickListener {
@@ -46,7 +47,7 @@ class DetailGenreActivity : BaseActivity(), DetailGenreContract.View,
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        collapsing_toolbar.title = getString(R.string.all_audio).toUpperCase()
+        collapsing_toolbar.title = getString(R.string.all_audio).toUpperCase(Locale.getDefault())
         genreImage.setImageResource(genre.genreImage)
     }
 

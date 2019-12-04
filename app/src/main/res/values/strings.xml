@@ -17,6 +17,16 @@
     <string name="rock">Rock</string>
     <string name="classical">Classical</string>
     <string name="error_message">Data Not Available</string>
+    <string name="service_on_failure">Không tải được bài hát</string>
     <string name="duration">4:00</string>
     <string name="current_time">0:00</string>
+    <string name="image_loop">image_loop</string>
+    <string name="image_next">image_next</string>
+    <string name="image_play">imgage_play</string>
+    <string name="image_previous">image_previous</string>
+    <string name="image_shuffle">image_shuffle</string>
+    <string name="image_playlist">image_playlist</string>
+    <string name="image_download">image_download</string>
+    <string name="image_artwork">image_artwork</string>
+    <string name="image_back">image_back</string>
 </resources>
