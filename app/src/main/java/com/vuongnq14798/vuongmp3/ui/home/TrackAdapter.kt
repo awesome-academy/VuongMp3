@@ -40,6 +40,6 @@ class TrackAdapter(
     }
 
     interface OnTrackClickListener {
-        fun onTrackClicked(Track: Track)
+        fun onTrackClicked(track: Track)
     }
 }
