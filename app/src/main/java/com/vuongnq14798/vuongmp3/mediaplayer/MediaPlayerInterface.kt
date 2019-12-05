@@ -4,6 +4,8 @@ import com.vuongnq14798.vuongmp3.data.model.Track
 
 interface MediaPlayerInterface {
 
+    val tracks: MutableList<Track>
+
     var currentTrack: Track?
 
     var currentPosition: Int

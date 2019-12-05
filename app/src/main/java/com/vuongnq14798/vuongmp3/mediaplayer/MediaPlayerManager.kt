@@ -22,8 +22,10 @@ class MediaPlayerManager(
     @ShuffleType var shuffleType = ShuffleType.OFF
     @LoopType var loopType = LoopType.NONE
     private val mediaPlayer = MediaPlayer()
-    private val tracks = mutableListOf<Track>()
     private var position = 0
+
+    override val tracks = mutableListOf<Track>()
+
     override var currentTrack: Track? = null
 
     override var currentPosition: Int

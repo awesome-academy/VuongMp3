@@ -30,6 +30,8 @@ interface ServiceInterface {
 
     fun updateTracks(newTracks: List<Track>)
 
+    fun getTracks(): List<Track>
+
     fun getShuffleType(): Int
 
     fun setShuffleType(type: Int)

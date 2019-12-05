@@ -32,6 +32,7 @@ class MediaPlayerService : Service(),
     override fun onBind(intent: Intent?): IBinder? = binder
 
     override fun onPrepared(mediaPlayer: MediaPlayer?) {
+        listener.onPlayingStateListener(StateType.PLAYING)
         mediaPlayerManager.start()
     }
 
@@ -82,7 +83,12 @@ class MediaPlayerService : Service(),
         listener.onChangeTrackListener()
     }
 
-    override fun isPlaying(): Boolean = mediaPlayerManager.isPlaying
+    override fun isPlaying(): Boolean =
+        try {
+            mediaPlayerManager.isPlaying
+        } catch (e: IllegalStateException) {
+            false
+        }
 
     override fun seekTo(position: Int) = mediaPlayerManager.seekTo(position)
 
@@ -101,6 +107,8 @@ class MediaPlayerService : Service(),
     override fun addTrack(track: Track) = mediaPlayerManager.addTrack(track)
 
     override fun updateTracks(newTracks: List<Track>) = mediaPlayerManager.updateTracks(newTracks)
+
+    override fun getTracks(): List<Track> = mediaPlayerManager.tracks
 
     override fun getShuffleType(): Int = mediaPlayerManager.shuffleType
 
