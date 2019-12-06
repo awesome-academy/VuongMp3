@@ -19,7 +19,8 @@ import com.vuongnq14798.vuongmp3.util.*
 import kotlinx.android.synthetic.main.activity_play_music.*
 
 class PlayMusicActivity : BaseActivity(),
-    ServiceListener, View.OnClickListener,
+    ServiceListener,
+    View.OnClickListener,
     SeekBar.OnSeekBarChangeListener {
 
     private lateinit var mediaPlayerService: MediaPlayerService
@@ -66,6 +67,7 @@ class PlayMusicActivity : BaseActivity(),
         duration.text = track.duration.let { StringUtils.formatTime(it) }
         updateCurrentTime()
         ImageUtils.rotateImage(artwork)
+        updateStateIcon()
     }
 
     override fun onClick(view: View?) {
@@ -92,13 +94,31 @@ class PlayMusicActivity : BaseActivity(),
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        mediaPlayerService.seekTo(progress * TIME_SECOND)
+        if (progress > 0) mediaPlayerService.seekTo(progress * TIME_SECOND)
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
+    private fun updateStateIcon() {
+        if (mediaPlayerService.isPlaying()) {
+            play.setImageResource(R.drawable.ic_pause)
+        } else {
+            play.setImageResource(R.drawable.ic_play)
+        }
+
+        when (mediaPlayerService.getLoopType()) {
+            LoopType.NONE -> loop.setColorFilter(ActivityCompat.getColor(this, R.color.color_white))
+            LoopType.ALL -> loop.setColorFilter(ActivityCompat.getColor(this, R.color.color_green))
+            LoopType.ONE -> loop.setColorFilter(ActivityCompat.getColor(this, R.color.color_accent))
+        }
+
+        when (mediaPlayerService.getShuffleType()) {
+            ShuffleType.OFF -> shuffle.setColorFilter(ActivityCompat.getColor(this, R.color.color_white))
+            ShuffleType.ON -> shuffle.setColorFilter(ActivityCompat.getColor(this, R.color.color_green))
+        }
+    }
     private fun updateCurrentTime() {
         seekTime.max = mediaPlayerService.getCurrentTrack()?.duration?.div(TIME_SECOND) ?: 0
         val handler = Handler()

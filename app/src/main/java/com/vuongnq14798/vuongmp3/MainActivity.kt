@@ -13,21 +13,41 @@ import com.vuongnq14798.vuongmp3.base.BaseActivity
 import com.vuongnq14798.vuongmp3.service.MediaPlayerService
 import com.vuongnq14798.vuongmp3.ui.downloaded.DownloadedFragment
 import com.vuongnq14798.vuongmp3.ui.home.HomeFragment
+import com.vuongnq14798.vuongmp3.ui.miniplay.MiniPlayFragment
 import com.vuongnq14798.vuongmp3.ui.mymusic.MyMusicFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var mediaPlayerService: MediaPlayerService
+    private val connection = object : ServiceConnection {
+
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = service as MediaPlayerService.MediaPlayerBinder
+            mediaPlayerService = binder.getService()
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+        }
+    }
+
     override val layoutResId: Int = R.layout.activity_main
 
     override fun initData(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            addFragment(HomeFragment())
+            addFragment(R.id.frameContainer ,HomeFragment())
         }
     }
 
     override fun initComponents() {
         bottomNavigation.setOnNavigationItemSelectedListener(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        bindService(MediaPlayerService.getIntent(this), connection, Context.BIND_AUTO_CREATE)
+        if (::mediaPlayerService.isInitialized && mediaPlayerService.getTracks().isNotEmpty())
+            replaceFragment(R.id.frameMiniPlay, MiniPlayFragment())
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -38,25 +58,25 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             R.id.downloaded_songs -> DownloadedFragment()
             else -> return false
         }
-        replaceFragment(fragment)
+        replaceFragment(R.id.frameContainer, fragment)
         return true
     }
 
-    private fun addFragment(fragment: Fragment) =
+    private fun addFragment(containerViewId: Int,fragment: Fragment) =
         supportFragmentManager
             .beginTransaction()
             .replace(
-                R.id.frameContainer,
+                containerViewId,
                 fragment,
                 fragment.javaClass.getSimpleName()
             )
             .commit()
 
-    private fun replaceFragment(fragment: Fragment) =
+    private fun replaceFragment(containerViewId: Int,fragment: Fragment) =
         supportFragmentManager
             .beginTransaction()
             .add(
-                R.id.frameContainer,
+                containerViewId,
                 fragment,
                 fragment.javaClass.getSimpleName()
             )
