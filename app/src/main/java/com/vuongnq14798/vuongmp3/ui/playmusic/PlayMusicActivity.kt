@@ -55,11 +55,6 @@ class PlayMusicActivity : BaseActivity(),
         bindService(MediaPlayerService.getIntent(this), serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
-    override fun onStop() {
-        unbindService(serviceConnection)
-        super.onStop()
-    }
-
     fun bindData(track: Track) {
         textTrackName.text = track.title
         textArtistName.text = track.artist
@@ -94,7 +89,7 @@ class PlayMusicActivity : BaseActivity(),
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        if (progress > 0) mediaPlayerService.seekTo(progress * TIME_SECOND)
+        if (fromUser) mediaPlayerService.seekTo(progress * TIME_SECOND)
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -108,28 +103,30 @@ class PlayMusicActivity : BaseActivity(),
             play.setImageResource(R.drawable.ic_play)
         }
 
-        when (mediaPlayerService.getLoopType()) {
-            LoopType.NONE -> loop.setColorFilter(ActivityCompat.getColor(this, R.color.color_white))
-            LoopType.ALL -> loop.setColorFilter(ActivityCompat.getColor(this, R.color.color_green))
-            LoopType.ONE -> loop.setColorFilter(ActivityCompat.getColor(this, R.color.color_accent))
+        val colorResIdLoop = when (mediaPlayerService.getLoopType()) {
+            LoopType.ALL -> R.color.color_green
+            LoopType.ONE -> R.color.color_accent
+            else -> R.color.color_white
         }
 
-        when (mediaPlayerService.getShuffleType()) {
-            ShuffleType.OFF -> shuffle.setColorFilter(ActivityCompat.getColor(this, R.color.color_white))
-            ShuffleType.ON -> shuffle.setColorFilter(ActivityCompat.getColor(this, R.color.color_green))
+        val colorResIdShuffle = if (mediaPlayerService.getShuffleType() == ShuffleType.ON) {
+            R.color.color_green
+        } else {
+            R.color.color_white
         }
+
+        loop.setColorFilter(ActivityCompat.getColor(this, colorResIdLoop))
+        shuffle.setColorFilter(ActivityCompat.getColor(this, colorResIdShuffle))
     }
+
     private fun updateCurrentTime() {
         seekTime.max = mediaPlayerService.getCurrentTrack()?.duration?.div(TIME_SECOND) ?: 0
         val handler = Handler()
         handler.postDelayed(object : Runnable {
             override fun run() {
-                if (mediaPlayerService.isPlaying()) {
-                    val current = mediaPlayerService.getCurrentPosition().div(TIME_SECOND)
-                    seekTime.progress = current
-                    currentTime.text =
-                        StringUtils.formatTime(mediaPlayerService.getCurrentPosition())
-                }
+                val current = mediaPlayerService.getCurrentPosition().div(TIME_SECOND)
+                seekTime.progress = current
+                currentTime.text = StringUtils.formatTime(mediaPlayerService.getCurrentPosition())
                 handler.postDelayed(this, TIME_DELAY)
             }
         }, TIME_DELAY)

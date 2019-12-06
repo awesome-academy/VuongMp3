@@ -2,6 +2,7 @@ package com.vuongnq14798.vuongmp3.data.source.local
 
 import android.content.Context
 import com.vuongnq14798.vuongmp3.data.model.Genre
+import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.data.source.TracksDataSource
 import com.vuongnq14798.vuongmp3.ui.OnDataLoadedListener
 
@@ -19,6 +20,10 @@ class TracksLocalDataSource(private val context: Context) : TracksDataSource.Loc
         }
 
         callback.onSuccess(listGenre)
+    }
+
+    override fun getTracksLocal(callback: OnDataLoadedListener<List<Track>>) {
+        TracksLocalAsyncTask(context, callback).execute()
     }
 
     companion object {

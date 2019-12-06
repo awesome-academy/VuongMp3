@@ -30,7 +30,9 @@ class MediaPlayerManager(
 
     override var currentPosition: Int
         get() = mediaPlayer.currentPosition
-        set(value) {currentPosition = value}
+        set(value) {
+            currentPosition = value
+        }
 
     override val isPlaying: Boolean get() = mediaPlayer.isPlaying
 
@@ -39,12 +41,16 @@ class MediaPlayerManager(
         mediaPlayer.reset()
         mediaPlayer.setAudioAttributes(
             AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .build()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
         )
 
         try {
-            mediaPlayer.setDataSource(mediaPlayerService, Uri.parse(track.streamUrl))
+            if (track.isOnline) {
+                mediaPlayer.setDataSource(mediaPlayerService, Uri.parse(track.streamUrl))
+            } else {
+                mediaPlayer.setDataSource(track.streamUrl)
+            }
         } catch (e: IOException) {
             //todo handle Exception
         } catch (e: IllegalStateException) {

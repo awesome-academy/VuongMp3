@@ -54,7 +54,7 @@ class MiniPlayFragment : BaseFragment(),
     fun bindData(track: Track) {
         textArtistName.text = track.artist
         textTrackName.text = track.title
-        track.artworkUrl?.let { ImageUtils.loadCircleImage(artwork, track.artworkUrl) }
+        track.artworkUrl?.let { ImageUtils.loadCircleImage(artwork, it) }
         updateStateIcon()
     }
 

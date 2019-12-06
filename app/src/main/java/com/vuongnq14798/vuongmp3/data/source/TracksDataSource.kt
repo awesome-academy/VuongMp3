@@ -21,5 +21,6 @@ interface TracksDataSource {
 
     interface Local {
         fun getGenres(callback: OnDataLoadedListener<List<Genre>>)
+        fun getTracksLocal(callback: OnDataLoadedListener<List<Track>>)
     }
 }

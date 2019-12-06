@@ -1,4 +1,4 @@
-package com.vuongnq14798.vuongmp3.ui.detailgenre
+package com.vuongnq14798.vuongmp3.ui.mymusic
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +11,10 @@ import com.vuongnq14798.vuongmp3.data.model.Track
 import com.vuongnq14798.vuongmp3.util.ImageUtils
 import kotlinx.android.synthetic.main.item_track.view.*
 
-class DetailGenreAdapter(
-    private val diffCallBack: DiffUtil.ItemCallback<Track>,
+class TrackAdapter(
+    diffCallBack: DiffUtil.ItemCallback<Track>,
     private val trackClickListener: OnTrackClickListener
-) : ListAdapter<Track, DetailGenreAdapter.ViewHolder>(diffCallBack) {
+) : ListAdapter<Track, TrackAdapter.ViewHolder>(diffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
