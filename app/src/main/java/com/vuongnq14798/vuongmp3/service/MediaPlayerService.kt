@@ -20,7 +20,7 @@ class MediaPlayerService : Service(),
     ServiceInterface {
 
     private lateinit var binder: IBinder
-    private lateinit var listener: ServiceListener
+    private var listener: ServiceListener? = null
 
     private val mediaPlayerManager: MediaPlayerManager by lazy { MediaPlayerManager.getInstance(this) }
 
@@ -32,7 +32,7 @@ class MediaPlayerService : Service(),
     override fun onBind(intent: Intent?): IBinder? = binder
 
     override fun onPrepared(mediaPlayer: MediaPlayer?) {
-        listener.onPlayingStateListener(StateType.PLAYING)
+        listener?.onPlayingStateListener(StateType.PLAYING)
         mediaPlayerManager.start()
     }
 
@@ -62,12 +62,12 @@ class MediaPlayerService : Service(),
 
     override fun pauseTrack() {
         mediaPlayerManager.pause()
-        listener.onPlayingStateListener(StateType.PAUSED)
+        listener?.onPlayingStateListener(StateType.PAUSED)
     }
 
     override fun startTrack() {
         mediaPlayerManager.start()
-        listener.apply {
+        listener?.apply {
             onChangeTrackListener()
             onPlayingStateListener(StateType.PLAYING)
         }
@@ -75,12 +75,12 @@ class MediaPlayerService : Service(),
 
     override fun previousTrack() {
         mediaPlayerManager.previousTrack()
-        listener.onChangeTrackListener()
+        listener?.onChangeTrackListener()
     }
 
     override fun nextTrack() {
         mediaPlayerManager.nextTrack()
-        listener.onChangeTrackListener()
+        listener?.onChangeTrackListener()
     }
 
     override fun isPlaying(): Boolean =
@@ -98,7 +98,12 @@ class MediaPlayerService : Service(),
         mediaPlayerManager.currentTrack = track
     }
 
-    override fun getCurrentPosition() = mediaPlayerManager.currentPosition
+    override fun getCurrentPosition() =
+        try{
+            mediaPlayerManager.currentPosition
+        } catch (e: IllegalStateException) {
+            0
+        }
 
     override fun setServiceListener(listener: ServiceListener) {
         this.listener = listener

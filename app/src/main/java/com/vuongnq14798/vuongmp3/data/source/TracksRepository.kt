@@ -26,7 +26,11 @@ class TracksRepository(
     }
 
     override fun getGenres(callback: OnDataLoadedListener<List<Genre>>) {
-        localDataSource?.getGenres(callback)
+        localDataSource.getGenres(callback)
+    }
+
+    override fun getTracksLocal(callback: OnDataLoadedListener<List<Track>>) {
+        localDataSource.getTracksLocal(callback)
     }
 
     companion object {

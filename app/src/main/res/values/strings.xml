@@ -29,4 +29,11 @@
     <string name="image_download">image_download</string>
     <string name="image_artwork">image_artwork</string>
     <string name="image_back">image_back</string>
+    <string name="permission_granted">Permissions granted.</string>
+    <string name="permission_denied">Permissions denied.</string>
+    <string name="title_permission_message">Need permission(s)</string>
+    <string name="mess_permission">Some permissions are required to do the task.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="should_show_an_explanation">Should show an explanation.</string>
 </resources>
